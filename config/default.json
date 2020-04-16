@@ -1,0 +1,3 @@
+{
+    "mongoURI": "mongodb+srv://mo123:mo123@cluster0-o4izp.mongodb.net/reactUsers?retryWrites=true&w=majority"
+}

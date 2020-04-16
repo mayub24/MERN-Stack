@@ -1,6 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const connectDB = require('./config/db');
 
 // Routes 
 const generalRoutes = require('./routes/generalRoutes');
@@ -18,9 +17,12 @@ const app = express();
 app.use(express.static("public"));
 
 
-// Body Parser
-app.use(bodyParser.urlencoded({ extended: false }));
+// Instead of body parser, we can do
+app.use(express.json({ extended: false }));
 
+
+// Establishing Mongo Connection from db.js which is inside the config file
+connectDB();
 
 app.use('/', generalRoutes);
 app.use('/users', userRoutes);
