@@ -21,6 +21,7 @@ app.use(express.static("public"));
 app.use(express.json({ extended: false }));
 
 
+
 // Establishing Mongo Connection from db.js which is inside the config file
 connectDB();
 

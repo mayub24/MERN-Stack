@@ -2,6 +2,9 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
+// Importing bcrypt for encryption
+const bcrypt = require('bcryptjs');
+
 // Initializing the schema
 const userSchema = new schema({
     firstName:
@@ -31,6 +34,26 @@ const userSchema = new schema({
         default: Date.now()
     }
 })
+
+// Encrypting password
+// pre means before saving
+userSchema.pre("save", async function (next) {
+
+    // Generate Salt
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash the password with the salt
+    const hashed = await bcrypt.hash(this.pass, salt);
+
+    // Make this password = to the hashed value
+    this.pass = hashed;
+
+    // Move onto the next middleware
+    next();
+
+    console.log('Password has been hashed.');
+
+});
 
 // Creating a model
 const UserModel = mongoose.model('users', userSchema);
